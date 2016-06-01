@@ -16,3 +16,8 @@ Example
 	$lookup = $postcode->lookup("SW1A 2AA");
 	print_r($lookup);
 	?>
+
+
+## License
+
+MIT Licensed

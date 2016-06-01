@@ -16,5 +16,3 @@ Example
 	$lookup = $postcode->lookup("SW1A 2AA");
 	print_r($lookup);
 	?>
-
-This is currently in development, more methods to follow.

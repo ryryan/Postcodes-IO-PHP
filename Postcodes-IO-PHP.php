@@ -117,5 +117,35 @@
 			$decoded = json_decode($json);
 			return $decoded->result;
 		}
+		public function distance($postcode1, $postcode2, $unit){
+			//adapted from http://www.geodatasource.com/developers/php
+			/*
+				Units:
+				M = Miles
+				N = Nautical Miles
+				K = Kilometers
+			*/
+			$postcode1 = $this->lookup($postcode1);
+			$postcode2 = $this->lookup($postcode2);
+			
+			if($postcode1 == null || $postcode2 == null){
+				return false;
+			}
+			
+			$theta = $postcode1->longitude - $postcode2->longitude;
+			$dist = sin(deg2rad($postcode1->latitude)) * sin(deg2rad($postcode2->latitude)) +  cos(deg2rad($postcode1->latitude)) * cos(deg2rad($postcode2->latitude)) * cos(deg2rad($theta));
+			$dist = acos($dist);
+			$dist = rad2deg($dist);
+			$miles = $dist * 60 * 1.1515;
+			$unit = strtoupper($unit);
+			
+			if ($unit == "K") {
+			    return ($miles * 1.609344);
+			} else if ($unit == "N") {
+			    return ($miles * 0.8684);
+			} else {
+			    return $miles;
+			}	
+		}
 	}
 ?>
